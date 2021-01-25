@@ -4,6 +4,7 @@ import styles from '../styles/main/main.module.css';
 import Profile from '../component/profile';
 import { Grid } from '@material-ui/core';
 import Menu from '../component/menu';
+import Skills from '../component/skills';
 
 export default function main() {
     return (
@@ -11,16 +12,16 @@ export default function main() {
             <Head>
                 <title>Welcome</title>
             </Head>
-            <Grid container className={styles.profile} direction="row" sm={12}>
-                <Grid sm={2}></Grid>
-                <Grid container sm={8} className={styles.grid}>
+            <Grid container className={styles.profile} direction="row" xs={12} sm={12}>
+                <Grid xs={12} sm={12}></Grid>
+                <Grid container xs={12} sm={12} className={styles.grid} >
                     <Profile></Profile>
                 </Grid>
-                <Grid container sm={2} direction="row">
-                    <Grid container direction="column" sm={12}>
+                <Grid container xs={12} sm={12} direction="row">
+                    <Grid container direction="row" xs={12} sm={12}>
                         <Menu></Menu>
                     </Grid>
-                    <Grid item sm={12}></Grid>
+                    <Grid item xs={12} sm={12}></Grid>
                 </Grid>
             </Grid>
         </div>

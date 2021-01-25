@@ -6,22 +6,16 @@
 .pagelink {
     font-weight: 500;
     font-style: bolder;
-    color: lightgray;
-    animation: appear 2s;
+    color: black;
+    animation: appear 1s;
     font-size: 16px;
+    transition: all 0.5s;
 }
 
 .pagelink:hover {
-    animation: select 0.5s 1;
-    animation-fill-mode: forwards;
-}
-
-@keyframes select {
-    100% {
-        color: black;
-        font-size: 18px;
-        transform: translate(-20%, 0);
-    }
+    color: gray;
+    font-size: 17px;
+    transform: translate(0, -10%);
 }
 
 @keyframes appear {
@@ -30,9 +24,9 @@
         transform: translate(0, -500%);
     }
     50% {
-        color: black;
+        color: lightgray;
     }
     80% {
-        color: lightgray;
+        color: black;
     }
 }

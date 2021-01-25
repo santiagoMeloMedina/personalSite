@@ -1,0 +1,92 @@
+
+$left_position: -200%, -170%, -150%, -100%, -50%, 150%, 170%, 200%, 250%;
+$top_position: -200%, -180%, -150%, -100%, -50%, 100%, 150%, 200%, 250%;
+
+@function getLeft() {
+    @if length($left_position) > 0 {
+        $newList: ();
+        $index: random(length($left_position));
+        @for $i from 1 through length($left_position) {
+            @if $i != $index {
+                $newList: append($newList, nth($left_position,$i), 'space');
+            }
+        }
+        $result: nth($left_position, $index);
+        $left_position: $newList !global;
+        @return $result;
+    }
+    @return 0%;
+    
+}
+
+@function getTop() {
+    @if length($top_position) > 0 {
+        $newList: ();
+        $index: random(length($top_position));
+        @for $i from 1 through length($top_position) {
+            @if $i != $index {
+                $newList: append($newList, nth($top_position,$i), 'space');
+            }
+        }
+        $result: nth($top_position, $index);
+        $top_position: $newList !global;
+        @return $result;
+    }
+    @return 0%;
+}
+
+
+.ball {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+}
+
+.logo {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    left: 50%;
+    top: 50%;
+    visibility: hidden;
+    animation: disperse 1s 1 forwards;
+    transition: opacity 1s;
+    animation-delay: 1.5s;
+    opacity: 20%;
+}
+
+@for $i from 0 to 400 {
+    .logo:nth-child(#{$i + 1}) {
+        left: getLeft();
+        top: getTop();
+    }
+
+    .logo:nth-child(#{$i + 1}):hover {
+        opacity: 100%;
+    }
+    
+}
+
+@keyframes disperse {
+    0% {
+        left: 50%;
+        top: 50%;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
