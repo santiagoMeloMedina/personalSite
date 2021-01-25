@@ -1,0 +1,38 @@
+
+.container {
+    border-left: 0px solid rgba(0, 0, 0, 0.05);
+}
+
+.pagelink {
+    font-weight: 500;
+    font-style: bolder;
+    color: lightgray;
+    animation: appear 2s;
+    font-size: 16px;
+}
+
+.pagelink:hover {
+    animation: select 0.5s 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes select {
+    100% {
+        color: black;
+        font-size: 18px;
+        transform: translate(-20%, 0);
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0%;
+        transform: translate(0, -500%);
+    }
+    50% {
+        color: black;
+    }
+    80% {
+        color: lightgray;
+    }
+}

@@ -1,0 +1,18 @@
+Unix
+
+Docker
+Docker Swarm
+AWS
+
+Python
+Javascript
+C++
+Java
+
+Flask
+Django
+Springboot
+
+Angular
+React
+Next

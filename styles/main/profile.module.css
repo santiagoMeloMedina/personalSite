@@ -1,0 +1,19 @@
+
+.container {
+}
+
+.photoGrid {
+    margin: 20px;
+}
+
+.photo {
+    height: 180px;
+    border-radius: 50%;
+}
+
+.name {
+    font-style: italic;
+}
+
+.info {
+}

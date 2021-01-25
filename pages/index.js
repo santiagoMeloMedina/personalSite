@@ -1,65 +1,28 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+import Head from 'next/head';
+import styles from '../styles/main/main.module.css';
+import Profile from '../component/profile';
+import { Grid } from '@material-ui/core';
+import Menu from '../component/menu';
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+export default function main() {
+    return (
+        <div className={styles.container}>
+            <Head>
+                <title>Welcome</title>
+            </Head>
+            <Grid container className={styles.profile} direction="row" sm={12}>
+                <Grid sm={2}></Grid>
+                <Grid container sm={8} className={styles.grid}>
+                    <Profile></Profile>
+                </Grid>
+                <Grid container sm={2} direction="row">
+                    <Grid container direction="column" sm={12}>
+                        <Menu></Menu>
+                    </Grid>
+                    <Grid item sm={12}></Grid>
+                </Grid>
+            </Grid>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    );
 }
