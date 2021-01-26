@@ -11,4 +11,26 @@
 
 .grid {
     overflow: hidden;
+    animation: unvanish 1s 1;
+}
+
+.gridout {
+    overflow: hidden;
+    animation: vanish 0.8s forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes unvanish {
+    0% {
+        opacity: 0%;
+    }
+}
+
+@keyframes vanish {
+    0% {
+        opacity: 100%;
+    }
+    100% {
+        opacity: 0%;
+    }
 }

@@ -8,7 +8,7 @@ export default function email() {
             <Grid className={styles.header} xs={12} sm={12}>
             </Grid>
             <Grid container className={styles.field} xs={12} sm={12}>
-            <Grid container className={styles.inputs} alignItems="center" justify="center">
+                <Grid container  alignItems="center" justify="center">
                     <Button
                         onClick={()=>{}}
                     >

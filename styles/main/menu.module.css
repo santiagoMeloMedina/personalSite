@@ -4,18 +4,23 @@
 }
 
 .pagelink {
+    animation: appear 1s;
+    transition: all 0.5s;
+}
+
+.pagelink button {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
     font-weight: 500;
     font-style: bolder;
     color: black;
-    animation: appear 1s;
-    font-size: 16px;
-    transition: all 0.5s;
 }
 
 .pagelink:hover {
     color: gray;
     font-size: 17px;
-    transform: translate(0, -10%);
+    transform: translate(0, -20%);
 }
 
 @keyframes appear {

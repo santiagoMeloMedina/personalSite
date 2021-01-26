@@ -1,46 +1,42 @@
 
-$left_position: -200%, -170%, -150%, -100%, -50%, 150%, 170%, 200%, 250%;
-$top_position: -200%, -180%, -150%, -100%, -50%, 100%, 150%, 200%, 250%;
+$coords: -30%, -15%, 0%, 100%, 115%, 130%;  
+$savedCoordinates: ();
 
-@function getLeft() {
-    @if length($left_position) > 0 {
+@function makePositions() {
+    $result: ();
+    @for $i from 1 through length($coords) {
+        @for $j from 1 through length($coords) {
+            $result: append($result, (nth($coords, $i), nth($coords, $j)), 'space');
+        }
+    }
+    @return $result;
+}
+
+$positions: makePositions();
+
+@function getCoordinate() {
+    @if length($positions) > 0 {
         $newList: ();
-        $index: random(length($left_position));
-        @for $i from 1 through length($left_position) {
+        $index: random(length($positions));
+        @for $i from 1 through length($positions) {
             @if $i != $index {
-                $newList: append($newList, nth($left_position,$i), 'space');
+                $newList: append($newList, nth($positions, $i), 'space');
             }
         }
-        $result: nth($left_position, $index);
-        $left_position: $newList !global;
+        $result: nth($positions, $index);
+        $positions: $newList !global;
+        $savedCoordinates: append($savedCoordinates, $result, 'space') !global;
         @return $result;
     }
-    @return 0%;
+    @return (0%, 0%);
     
 }
-
-@function getTop() {
-    @if length($top_position) > 0 {
-        $newList: ();
-        $index: random(length($top_position));
-        @for $i from 1 through length($top_position) {
-            @if $i != $index {
-                $newList: append($newList, nth($top_position,$i), 'space');
-            }
-        }
-        $result: nth($top_position, $index);
-        $top_position: $newList !global;
-        @return $result;
-    }
-    @return 0%;
-}
-
 
 .ball {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
+    width: 50%;
+    height: 50%;
     left: 50%;
     top: 50%;
     border-radius: 50%;
@@ -49,23 +45,61 @@ $top_position: -200%, -180%, -150%, -100%, -50%, 100%, 150%, 200%, 250%;
 .logo {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: 30%;
-    left: 50%;
+    width: 30px;
+    left: 30px;
     top: 50%;
     visibility: hidden;
-    animation: disperse 1s 1 forwards;
     transition: opacity 1s;
-    animation-delay: 1.5s;
     opacity: 20%;
+    animation: disperse 1s 1 forwards;
+    animation-delay: 1.5s;
 }
 
-@for $i from 0 to 400 {
+.logo {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    left: 30px;
+    top: 50%;
+    visibility: hidden;
+    transition: opacity 1s;
+    opacity: 20%;
+    animation: disperse 1s 1 forwards;
+    animation-delay: 1.5s;
+}
+
+.logoout {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    left: 30px;
+    top: 50%;
+    transition: opacity 1s;
+    opacity: 20%;
+    animation: congregate 0.8s 1 forwards;
+}
+
+@for $i from 0 to length($coords) * length($coords) {
     .logo:nth-child(#{$i + 1}) {
-        left: getLeft();
-        top: getTop();
+        $coordinate: getCoordinate();
+        left: nth($coordinate, 1);
+        top: nth($coordinate, 2);
     }
 
     .logo:nth-child(#{$i + 1}):hover {
+        opacity: 100%;
+    }
+    
+}
+
+@for $i from 0 to length($coords) * length($coords) {
+    .logoout:nth-child(#{$i + 1}) {
+        $coordinate: nth($savedCoordinates, $i + 1);
+        left: nth($coordinate, 1);
+        top: nth($coordinate, 2);
+    }
+
+    .logoout:nth-child(#{$i + 1}):hover {
         opacity: 100%;
     }
     
@@ -78,6 +112,14 @@ $top_position: -200%, -180%, -150%, -100%, -50%, 100%, 150%, 200%, 250%;
     }
     100% {
         visibility: visible;
+    }
+}
+
+@keyframes congregate {
+    100% {
+        left: 50%;
+        top: 30%;
+        visibility: hidden;
     }
 }
 
