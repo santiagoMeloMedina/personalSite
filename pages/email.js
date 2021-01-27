@@ -4,6 +4,7 @@ import styles from '../styles/email.module.css';
 import cn from 'classnames';
 import { useState } from 'react';
 import { checkEmailValid } from '../util/checkValidity';
+import { useRouter } from 'next/router';
 
 function checkValidity(state, setState) {
     let email = checkEmailValid(state.inputs.email);
@@ -18,33 +19,85 @@ function updateTextValue(state, setState, key, value) {
     checkValidity(state, setState);
 }
 
-export default function email() {
-    const [state, setState] = useState({ send: false, inputs: { name: "", email: "", message: ""}});
+function triggerNotification(state, setState, message = '', icon = 'default') {
+    let newState = { ...state, notification: { state: true, message: message, visible: true } };
+    setState(newState);
+    setTimeout(() => {
+        setState({ ...newState, notification: { ...newState.notification, state: false } });
+    }, 2000);
+}
+
+function sendEmail(state, setState) {
+    if (state.send) {
+        let newState = { ...state, send: false, inputs: { name: "", email: "", message: "" } };
+        setState(newState);
+        triggerNotification(newState, setState, `thank you ${state.inputs.name}! I'll contact you asap!`);
+    } else {
+        triggerNotification(state, setState, `Please fill up all fields accordingly`);
+    }
+}
+
+function getOut(state, setState) {
+    setState({ ...state, in: false});
+}
+
+function setInitialStates(configure) {
+    return configure({
+        in: true,
+        send: false,
+        notification: {
+            state: false,
+            message: "",
+            visible: false
+        },
+        inputs: {
+            name: "",
+            email: "",
+            message: ""
+        }
+    });
+}
+
+export default function email({ ...pageProps }) {
+    const [state, setState] = setInitialStates(useState);
     return (
-        <Grid container className={styles.container} xs={12} sm={12} direction="row" alignItems="center" justify="center">
-            <Grid className={styles.header} xs={12} sm={12}>
+        <Grid container className={cn({
+            [styles.container]: state.in,
+            [styles.out]: !state.in 
+        })} xs={12} sm={12} direction="row" justify="center">
+            <Grid container className={styles.header} xs={12} sm={12} alignItems="center" justify="center">
+                <Grid container className={cn({
+                    [styles.notified]: state.notification.state,
+                    [styles.unnotified]: !state.notification.state
+                })} style={{ visibility: !state.notification.visible ? 'hidden' : 'visible' }} xs={8} sm={8} alignItems="center" justify="center">
+                    {state.notification.message}
+                </Grid>
             </Grid>
             <Grid container className={styles.field} direction="column" alignItems="center" justify="center" xs={9} sm={9}>
                 <Grid container className={styles.form} direction="column" alignItems="center" justify="center">
-                    <input className={styles.text} 
-                        placeholder="full name" 
-                        onChange={(e)=>{ updateTextValue(state, setState, "name", e.target.value) }}
+                    <input className={styles.text}
+                        placeholder="full name"
+                        value={state.inputs.name}
+                        onChange={(e) => { updateTextValue(state, setState, "name", e.target.value) }}
                     ></input>
-                    <input className={styles.text} 
+                    <input className={styles.text}
                         placeholder="email"
-                        onChange={(e)=>{ updateTextValue(state, setState, "email", e.target.value) }}
+                        value={state.inputs.email}
+                        onChange={(e) => { updateTextValue(state, setState, "email", e.target.value) }}
                     ></input>
-                    <textarea className={styles.message} 
+                    <textarea className={styles.message}
                         placeholder="message"
-                        onChange={(e)=>{ updateTextValue(state, setState, "message", e.target.value) }}
+                        value={state.inputs.message}
+                        onChange={(e) => { updateTextValue(state, setState, "message", e.target.value) }}
                     ></textarea>
                     <button className={cn({
                         [styles.send]: !state.send,
                         [styles.sendactive]: state.send
-                    })}>send</button>
+                    })} onClick={() => { sendEmail(state, setState) }}>send</button>
                 </Grid>
             </Grid>
-            <Grid container className={styles.foot} xs={12} sm={12}>
+            <Grid container className={styles.foot} xs={12} sm={12} alignItems="center" justify="center">
+                <button className={styles.back} onClick={()=>{ pageProps.waitBeforeRoute("/", ()=>{getOut(state, setState)}, 500) }}></button>
             </Grid>
         </Grid>
     );

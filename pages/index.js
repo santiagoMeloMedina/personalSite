@@ -7,11 +7,11 @@ import Menu from '../component/menu';
 import cn from 'classnames';
 import { useState } from 'react';
 
-function getOut(setState, states) {
-    setState(states);
+function getOut(state, setState) {
+    setState({ ...state, in: false});
 }
 
-export default function main() {
+export default function main({ ...pageProps }) {
     const [state, setState] = useState({ in: true });
     return (
         <div className={styles.container}>
@@ -31,7 +31,7 @@ export default function main() {
                     [styles.gridout]: !state.in
                 })} >
                     <Grid container direction="row" xs={12} sm={12}>
-                        <Menu out={()=>{ getOut(setState, { in: false}) }}></Menu>
+                        <Menu waitBeforeRoute={pageProps.waitBeforeRoute} out={()=>{ getOut(state, setState) }}></Menu>
                     </Grid>
                     <Grid item xs={12} sm={12}></Grid>
                 </Grid>
