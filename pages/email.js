@@ -3,9 +3,11 @@ import { Grid, Button } from '@material-ui/core';
 import styles from '../styles/email.module.css';
 import cn from 'classnames';
 import { useState } from 'react';
+import { checkEmailValid } from '../util/checkValidity';
 
 function checkValidity(state, setState) {
-    let result = state.name != "" && state.email != "" && state.message != "";
+    let email = checkEmailValid(state.inputs.email);
+    let result = state.inputs.name != "" && email && state.inputs.message != "";
     setState({ ...state, send: result });
 }
 
@@ -13,7 +15,7 @@ function updateTextValue(state, setState, key, value) {
     let newInputs = state.inputs;
     newInputs[key] = value;
     setState({ ...state, inputs: newInputs });
-    checkValidity();
+    checkValidity(state, setState);
 }
 
 export default function email() {
