@@ -97,7 +97,8 @@ export default function email({ ...pageProps }) {
                 </Grid>
             </Grid>
             <Grid container className={styles.foot} xs={12} sm={12} alignItems="center" justify="center">
-                <button className={styles.back} onClick={()=>{ pageProps.waitBeforeRoute("/", ()=>{getOut(state, setState)}, 500) }}></button>
+                <Grid className={styles.back} onClick={()=>{ pageProps.waitBeforeRoute("/", ()=>{getOut(state, setState)}, 500) }}>
+                </Grid>
             </Grid>
         </Grid>
     );
