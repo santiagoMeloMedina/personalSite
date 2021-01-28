@@ -1,37 +1,4 @@
 
-$coords: -30%, -15%, 0%, 100%, 115%, 130%;  
-$savedCoordinates: ();
-
-@function makePositions() {
-    $result: ();
-    @for $i from 1 through length($coords) {
-        @for $j from 1 through length($coords) {
-            $result: append($result, (nth($coords, $i), nth($coords, $j)), 'space');
-        }
-    }
-    @return $result;
-}
-
-$positions: makePositions();
-
-@function getCoordinate() {
-    @if length($positions) > 0 {
-        $newList: ();
-        $index: random(length($positions));
-        @for $i from 1 through length($positions) {
-            @if $i != $index {
-                $newList: append($newList, nth($positions, $i), 'space');
-            }
-        }
-        $result: nth($positions, $index);
-        $positions: $newList !global;
-        $savedCoordinates: append($savedCoordinates, $result, 'space') !global;
-        @return $result;
-    }
-    @return (0%, 0%);
-    
-}
-
 .ball {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -79,11 +46,8 @@ $positions: makePositions();
     animation: congregate 0.8s 1 forwards;
 }
 
-@for $i from 0 to length($coords) * length($coords) {
+@for $i from 0 to 500 {
     .logo:nth-child(#{$i + 1}) {
-        $coordinate: getCoordinate();
-        left: nth($coordinate, 1);
-        top: nth($coordinate, 2);
     }
 
     .logo:nth-child(#{$i + 1}):hover {
@@ -92,11 +56,8 @@ $positions: makePositions();
     
 }
 
-@for $i from 0 to length($coords) * length($coords) {
+@for $i from 0 to 500 {
     .logoout:nth-child(#{$i + 1}) {
-        $coordinate: nth($savedCoordinates, $i + 1);
-        left: nth($coordinate, 1);
-        top: nth($coordinate, 2);
     }
 
     .logoout:nth-child(#{$i + 1}):hover {

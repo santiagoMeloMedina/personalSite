@@ -17,7 +17,7 @@ export default function Profile({ ...pageProps }) {
                 <h1>Hello there!</h1>
                 <div>My name is <span className={styles.name}>Santiago Melo Medina</span></div>
                 <div>I'm a software engineer enthusiastic for creating stuff!</div>
-                <h3>Welcome to my personal space</h3>
+                <h3>Welcome</h3>
             </Grid>
         </Grid>
     )
