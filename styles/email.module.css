@@ -31,6 +31,8 @@
     border-radius: 5px;
     box-shadow: gray 5px 5px 9px 0.01px;
     animation: unvanish 0.5s 1;
+    padding: 20px;
+    overflow: hidden;
 }
 
 .unnotified {
@@ -41,6 +43,8 @@
     border-radius: 5px;
     box-shadow: gray 5px 5px 9px 0.01px;
     animation: vanish 1s 1;
+    padding: 20px;
+    overflow: hidden;
 }
 
 .field {
@@ -148,8 +152,7 @@
     width: 70px;
     height: 70px;
     background-color: white;
-    animation: unvanish 0.5s 1;
-    border-radius: 50%;
+    animation: unvanishBack 0.8s 1;
     opacity: 50%;
     transition: opacity 0.2s, box-shadow 0.3s;
     border: none;
@@ -187,6 +190,18 @@
     }
     100% {
         opacity: 0%;
+    }
+}
+
+@keyframes unvanishBack {
+    0% {
+        opacity: 0%;
+        transform: rotate(-90deg);
+    }
+    50% {
+        opacity: 0%;
+        margin-top: -100px;
+        transform: rotate(-90deg);
     }
 }
 
