@@ -29,9 +29,13 @@ function triggerNotification(state, setState, message = '', icon = 'default') {
 
 function sendEmail(state, setState) {
     if (state.send) {
-        let newState = { ...state, send: false, inputs: { name: "", email: "", message: "" } };
+        state.methods.changeLoading(true);
+        setTimeout(() => {
+            let newState = { ...state, send: false, inputs: { name: "", email: "", message: "" } };
         setState(newState);
+        state.methods.changeLoading(false);
         triggerNotification(newState, setState, `thank you ${state.inputs.name}! I'll contact you asap!`);
+        }, 5000);
     } else {
         triggerNotification(state, setState, `Please fill up all fields accordingly`);
     }
@@ -41,8 +45,11 @@ function getOut(state, setState) {
     setState({ ...state, in: false});
 }
 
-function setInitialStates(configure) {
+function setInitialStates(configure, props) {
     return configure({
+        methods: {
+            changeLoading: props.changeLoadingState,
+        },
         in: true,
         send: false,
         notification: {
@@ -59,7 +66,7 @@ function setInitialStates(configure) {
 }
 
 export default function email({ ...pageProps }) {
-    const [state, setState] = setInitialStates(useState);
+    const [state, setState] = setInitialStates(useState, pageProps);
     return (
         <Grid container className={cn({
             [styles.container]: state.in,
