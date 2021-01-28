@@ -18,9 +18,9 @@ export default function main({ ...pageProps }) {
             <Head>
                 <title>Welcome</title>
             </Head>
-            <Grid container className={styles.profile} direction="row" xs={12} sm={12}>
+            <Grid container className={styles.profile} direction="row" xs={12} sm={12} justify="center">
                 <Grid xs={12} sm={12}></Grid>
-                <Grid container xs={12} sm={12} className={cn({
+                <Grid container xs={10} sm={12} className={cn({
                     [styles.grid]: state.in,
                     [styles.gridout]: !state.in
                 })} >

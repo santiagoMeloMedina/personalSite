@@ -47,10 +47,11 @@
     position: absolute;
     transform: translate(0, -50%);
     top: 50%;
-    height: 50%;
-    min-height: 400px;
+    height: 40%;
+    min-height: 300px;
     background-color: white;
     box-shadow: gray 5px 5px 9px 0.01px;
+    overflow: hidden;
 }
 
 .form {
@@ -74,7 +75,7 @@
     color: black;
     transition: background-color 0.2s, color 1s width 1s;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .text:focus, .text:hover {
@@ -96,12 +97,11 @@
     margin: 5px;
     background-color: lightgray;
     color: black;
-    vertical-align:middle;
     transition: background-color 0.2s, color 1s width 1s;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    padding: 12px;
+    font-size: 14px;
     overflow: hidden;
+    padding: 8px;
 }
 
 .message:focus, .message:hover {
@@ -115,6 +115,7 @@
 .send {
     margin: 15px;
     width: 50%;
+    max-width: 500px;
     height: 40px;
     border: none;
     background-color: lightgray;
@@ -127,10 +128,12 @@
     margin: 15px;
     width: 50%;
     height: 40px;
+    max-width: 500px;
     border: none;
     background-color: #333;
     color: white;
     outline: none;
+    font-family: 'Roboto', sans-serif;
 }
 
 .foot {
@@ -152,10 +155,13 @@
     border: none;
     outline: none;
     overflow: hidden;
+    padding: 20px;
+    transition: transform 0.5s;
 }
 
 .back:hover {
     opacity: 100%;
+    transform: rotate(-90deg);
     box-shadow: gray 2px 2px 8px 0.01px;
 }
 
@@ -184,7 +190,7 @@
     }
 }
 
-@media only screen and (max-height: 694px) {
+@media only screen and (max-height: 634px) {
     .notified {
         animation: vanish 1s forwards;
     }
@@ -194,4 +200,16 @@
         opacity: 0%;
         visibility: hidden;
     }
+
+    .message, .send, .text {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 570px) {
+
+    .message, .send, .text {
+        font-size: 10px;
+    }
+
 }

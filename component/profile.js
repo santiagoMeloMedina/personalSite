@@ -6,8 +6,8 @@ import Skills from '../component/skills';
 
 export default function Profile({ ...pageProps }) {
     return (
-        <Grid container className={styles.container} direction="column" alignItems="center" sm={12} justify="center">
-            <Grid container sm={4} className={styles.photoGrid} direction="row" alignItems="center" justify="center">
+        <Grid container className={styles.container} direction="column" alignItems="center" xs={12} sm={12} justify="center">
+            <Grid container xs={4} sm={4} className={styles.photoGrid} direction="row" alignItems="center" justify="center">
                 <Skills state={pageProps.state}></Skills>
                 <Grid container className={styles.noselect} direction="row" alignItems="center" justify="center">
                     <img src="photo.jpeg" className={styles.photo}></img>  

@@ -96,9 +96,8 @@ export default function email({ ...pageProps }) {
                     })} onClick={() => { sendEmail(state, setState) }}>send</button>
                 </Grid>
             </Grid>
-            <Grid container className={styles.foot} xs={12} sm={12} alignItems="center" justify="center">
-                <Grid className={styles.back} onClick={()=>{ pageProps.waitBeforeRoute("/", ()=>{getOut(state, setState)}, 500) }}>
-                </Grid>
+            <Grid container className={styles.foot} xs={12} sm={12} direction="column" alignItems="center" justify="center">
+                <img src="arrow.svg" className={styles.back} onClick={()=>{ pageProps.waitBeforeRoute("/", getOut(state, setState), 500)}}></img>
             </Grid>
         </Grid>
     );
