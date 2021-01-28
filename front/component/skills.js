@@ -13,7 +13,7 @@ const images = [
 function getPositions(images) {
     let positions = {};
     images.forEach(name => {
-        positions[name] = getRandomCirclePosition(130);;
+        positions[name] = getRandomCirclePosition(130);
     });
     return positions;
 }
