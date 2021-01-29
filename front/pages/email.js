@@ -44,7 +44,7 @@ function sendEmail(state, setState) {
         }
         emailService.sendEmail(state.inputs.name, state.inputs.email, state.inputs.message, finished);
     } else {
-        triggerNotification(state, setState, `Please fill up all fields accordingly`);
+        triggerNotification(state, setState, EMAIL.FIELD_ERROR);
     }
 }
 
