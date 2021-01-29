@@ -5,6 +5,8 @@ import cn from 'classnames';
 import { useState } from 'react';
 import { checkEmailValid } from '../util/checkValidity';
 import { useRouter } from 'next/router';
+import emailService from '../service/email';
+import * as EMAIL from '../constant/email';
 
 function checkValidity(state, setState) {
     let email = checkEmailValid(state.inputs.email);
@@ -30,12 +32,17 @@ function triggerNotification(state, setState, message = '', icon = 'default') {
 function sendEmail(state, setState) {
     if (state.send) {
         state.methods.changeLoading(true);
-        setTimeout(() => {
-            let newState = { ...state, send: false, inputs: { name: "", email: "", message: "" } };
-        setState(newState);
-        state.methods.changeLoading(false);
-        triggerNotification(newState, setState, `thank you ${state.inputs.name}! I'll contact you asap!`);
-        }, 5000);
+        const finished = (result) => {
+            state.methods.changeLoading(false);
+            if (result) {
+                let newState = { ...state, send: false, inputs: { name: "", email: "", message: "" } };
+                setState(newState);
+                triggerNotification(newState, setState, EMAIL.SUCESSFUL_SEND(state.inputs.name));
+            } else {
+                triggerNotification(state, setState, EMAIL.ERROR_SEND(state.inputs.name));
+            }    
+        }
+        emailService.sendEmail(state.inputs.name, state.inputs.email, state.inputs.message, finished);
     } else {
         triggerNotification(state, setState, `Please fill up all fields accordingly`);
     }
